@@ -27,8 +27,8 @@
 └── recsys-xcom_delete.py
 ```
 
-
-## WorkFlow Scenario
+## Recsys Workflow Scenario ( SageMaker )
+## SCP WorkFlow Scenario ( SCP is Simple Just on EC2 )
 1. Get Config Info ( Anywhere )
 2. Push Config Info into Airflow Variables 
 3. Get Code From Personal Repo
