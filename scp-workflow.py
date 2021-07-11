@@ -25,7 +25,7 @@ from git import Repo # GitPython
 import shutil
 
 
-DAG_ID = "SCP-WORKFLOW-MODEL-TEST"
+DAG_ID = "Simple-Docker-Workflow-Test"
 HEADER = "Airflow" # os.environ('HEADER')
 
 # DAG SETTINGS
