@@ -38,7 +38,7 @@
 4. Build DockerFile ( Build on Airflow)
 5. Push Image into Image Repo
 6. Run Image:Latest
-## Prevent Airflow LocalDB 
+## Flush Airflow LocalDB
 ## Issues
 chmod +x /var/run/docker.sock <- DockerOperator를 사용하기 위해 dockerurl 지정 필요 및 실행 권한 변경 필요
 Netowork Configuration 필요
