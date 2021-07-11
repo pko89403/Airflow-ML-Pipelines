@@ -25,7 +25,7 @@ from git import Repo # GitPython
 import shutil
 
 
-DAG_ID = "Simple-Docker-Workflow-Test"
+DAG_ID = "SCP-Docker-Workflow"
 HEADER = "Airflow" # os.environ('HEADER')
 
 # DAG SETTINGS
@@ -52,7 +52,7 @@ def push_all_parameter(**kwargs):
 
     # 1. download config file from s3
     """
-    bucketName = 'ap-rnd-recsys-test'
+    bucketName = 'scp'
     at_S3_Path = 'AirflowConfig/'
     outputName = 'config.json'
     s3 = boto3.resource('s3')
