@@ -1,5 +1,13 @@
-# Amazon AWS로 구축하는 머신러닝의 모든 것
-## 사용언어 python, 라이브러리 : Amazon AWS Python API : boto3, Airflow
+# ML Pipelines on Amazon AWS
+
+
+## Python, Boto3, Airflow
+
+- Recommender Pipeline
+- EMR
+- RDS
+- SageMaker
+- XCom
 
 ## Project Architecture
 ```
