@@ -3,7 +3,8 @@
 
 ## Python, Boto3, Airflow
 
-- Recommender Pipeline
+- Recsys Pipeline
+- SCP Pipeline
 - EMR
 - RDS
 - SageMaker
