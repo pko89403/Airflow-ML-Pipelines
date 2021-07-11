@@ -41,7 +41,7 @@ class EMR():
                                                     'Name': 'etl',
                                                     'ActionOnFailure': 'TERMINATE_CLUSTER',
                                                     'HadoopJarStep': {
-                                                        'Jar': 's3://ap-northeast-2.elasticmapreduce/libs/script-runner/script-runner.jar',
+                                                        'Jar': 's3://northeast-2.elasticmapreduce/libs/script-runner/script-runner.jar',
                                                         'Args': [SHELL, EMR_BUCKET_NAME, RDB_ENDPOINT, RDB_DATABASE, RDB_TABLE, RDB_USER, RDB_PWD, SOURCE_BUCKET]
                                                     }
                                                 }],

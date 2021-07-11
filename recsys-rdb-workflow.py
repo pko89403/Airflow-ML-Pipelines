@@ -28,9 +28,9 @@ HEADER = "Airflow" # os.environ('HEADER')
 
 # DAG SETTINGS
 default_args = {
-    'owner' : 'RND-KangSeokWoo',
+    'owner' : 'KangSeokWoo',
     'start_date' : airflow.utils.dates.days_ago(1), 
-    'email' : ['pko954@amorepacific.com'],
+    'email' : ['pko954@gmail.com'],
     'email_on_failure': True,
     'email_on_retry': True,
     'retries' : 3,
@@ -81,7 +81,7 @@ def create_cluster(**context):
     cluster_id = config["AWS"]["RDS"]["CLUSTER_ID"]
     parameter_group_name = config["AWS"]["RDS"]["PARAMETER_GROUP"]
     db_name = config["AWS"]["RDS"]["DB_NAME"]
-    vpc_security =["AP-PIPE-RND-RDS"] #[config["AWS"]["RDS"]["SECURITY_GROUP"]]
+    vpc_security =["PIPE-RND-RDS"] #[config["AWS"]["RDS"]["SECURITY_GROUP"]]
     db_engine = config["AWS"]["RDS"]["ENGINE"]
     db_engine_version = config["AWS"]["RDS"]["ENGINE_VERSION"]
     db_engine_mode = config["AWS"]["RDS"]["ENGINE_MODE"]
@@ -125,7 +125,7 @@ def create_cluster(**context):
         else:
             raise AirflowException(f"Unexpected Error: {str(ex)}")
     
-    context['task_instance'].xcom_push(key='ap-recsys-apmall-rds-airflow', value=cluster_id)
+    context['task_instance'].xcom_push(key='recsys-rds-airflow', value=cluster_id)
 
 def delete_cluster():
     config = Variable.get(key='recommendation', deserialize_json=True)
@@ -157,7 +157,7 @@ class RDSAvailableSensor(BaseSensorOperator):
         self.rds_client = get_rds_client()
 
     def poke(self, context):
-        cluster_identifier= context['task_instance'].xcom_pull(key='ap-recsys-apmall-rds-airflow')
+        cluster_identifier= context['task_instance'].xcom_pull(key='recsys-rds-airflow')
 
         try:
             response = self.rds_client.describe_db_clusters(DBClusterIdentifier=cluster_identifier)

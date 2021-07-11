@@ -11,9 +11,9 @@ import time
 
 # DAG SETTINGS
 default_args = {
-    'owner' : 'RND-KangSeokWoo',
+    'owner' : 'KangSeokWoo',
     'start_date' : airflow.utils.dates.days_ago(1), 
-    'email' : ['pko954@amorepacific.com'],
+    'email' : ['pko954@gmail.com'],
     'email_on_failure': True,
     'email_on_retry': True,
     'retries' : 3,

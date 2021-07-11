@@ -32,9 +32,9 @@ HEADER = "Airflow" # os.environ('HEADER')
 
 # DAG SETTINGS
 default_args = {
-    'owner' : 'RND-KangSeokWoo',
+    'owner' : 'KangSeokWoo',
     'start_date' : airflow.utils.dates.days_ago(1), 
-    'email' : ['pko954@amorepacific.com'],
+    'email' : ['pko954@gmail.com'],
     'email_on_failure': True,
     'email_on_retry': True,
     'retries' : 3,
@@ -132,7 +132,7 @@ def create_cluster(**context):
         else:
             raise AirflowException(f"Unexpected Error: {str(ex)}")
     
-    context['task_instance'].xcom_push(key='ap-recsys-apmall-rds-airflow', value=cluster_id)
+    context['task_instance'].xcom_push(key='recsys-rds-airflow', value=cluster_id)
 
 def delete_cluster():
     config = Variable.get(key='recommendation', deserialize_json=True)
@@ -158,7 +158,7 @@ def delete_cluster():
 
 # EMR Function
 def get_emr_client():
-    session = boto3.session.Session(region_name='ap-northeast-2')
+    session = boto3.session.Session(region_name='northeast-2')
     emr_client = session.client('emr')
     return emr_client
 
@@ -186,7 +186,7 @@ def run_emr_cluster(**context):
     
     try:
         emr_client = get_emr_client()
-        response = emr_client.run_job_flow(Name='ap-recsys-apmall-emr-airflow',
+        response = emr_client.run_job_flow(Name='recsys-emr-airflow',
                                                 LogUri=LOG_URL,
                                                 ReleaseLabel=RELEASE_LABEL,
                                                 ServiceRole='EMR_DefaultRole',
@@ -197,7 +197,7 @@ def run_emr_cluster(**context):
                                                     'Name': 'etl',
                                                     'ActionOnFailure': 'TERMINATE_CLUSTER',
                                                     'HadoopJarStep': {
-                                                        'Jar': 's3://ap-northeast-2.elasticmapreduce/libs/script-runner/script-runner.jar',
+                                                        'Jar': 's3://northeast-2.elasticmapreduce/libs/script-runner/script-runner.jar',
                                                         'Args': [SHELL, EMR_BUCKET_NAME, RDB_ENDPOINT, RDB_DATABASE, RDB_TABLE, RDB_USER, RDB_PWD, SOURCE_BUCKET]
                                                     }
                                                 }],
@@ -253,7 +253,7 @@ def run_emr_cluster(**context):
     except Exception as ex:
         raise AirflowException(f"Unexpected Error: {str(ex)}")
 
-    context['task_instance'].xcom_push(key='ap-recsys-apmall-emr-airflow', value=JobFlowId)
+    context['task_instance'].xcom_push(key='recsys-emr-airflow', value=JobFlowId)
     logger.info(f'[run_emr_cluster] JobFlowId: {JobFlowId} ***********')
 
 
@@ -429,12 +429,12 @@ class EmrJobFlowSensor(BaseSensorOperator):
     @apply_defaults
     def __init__(self, *args, **kwargs):
         super(EmrJobFlowSensor, self).__init__(*args, **kwargs)
-        session = boto3.session.Session(region_name='ap-northeast-2')
+        session = boto3.session.Session(region_name='northeast-2')
 
         self.emr_client = session.client('emr')
           
     def poke(self, context):
-        job_flow_id = context['task_instance'].xcom_pull(key='ap-recsys-apmall-emr-airflow')
+        job_flow_id = context['task_instance'].xcom_pull(key='recsys-emr-airflow')
         
         logger.info(f'[poke - EmrJobFlowSensor] job_flow_id: {job_flow_id} ***********')
         description = self.emr_client.describe_cluster(ClusterId=job_flow_id)
@@ -461,7 +461,7 @@ class RDSAvailableSensor(BaseSensorOperator):
         self.rds_client = get_rds_client()
 
     def poke(self, context):
-        cluster_identifier= context['task_instance'].xcom_pull(key='ap-recsys-apmall-rds-airflow')
+        cluster_identifier= context['task_instance'].xcom_pull(key='recsys-rds-airflow')
 
         try:
             response = self.rds_client.describe_db_clusters(DBClusterIdentifier=cluster_identifier)

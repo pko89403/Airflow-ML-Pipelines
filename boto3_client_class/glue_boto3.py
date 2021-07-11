@@ -10,8 +10,8 @@ SECRET_KEY = ""
 
 def get_glue_client():
     glue_client = boto3.client(service_name='glue',
-                               region_name='ap-northeast-2',
-                               endpoint_url='https://glue.ap-northeast-2.amazonaws.com',
+                               region_name='northeast-2',
+                               endpoint_url='https://glue.northeast-2.amazonaws.com',
                                aws_access_key_id=ACCESS_KEY,
                                aws_secret_access_key=SECRET_KEY)
     return glue_client
