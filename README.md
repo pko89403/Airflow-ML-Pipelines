@@ -26,3 +26,16 @@
 ├── recsys-workflow.py
 └── recsys-xcom_delete.py
 ```
+
+
+## WorkFlow Scenario
+1. Get Config Info ( Anywhere )
+2. Push Config Info into Airflow Variables 
+3. Get Code From Personal Repo
+4. Build DockerFile ( Build on Airflow)
+5. Push Image into Image Repo
+6. Run Image:Latest
+
+## Issues
+chmod +x /var/run/docker.sock <- DockerOperator를 사용하기 위해 dockerurl 지정 필요 및 실행 권한 변경 필요
+Netowork Configuration 필요
