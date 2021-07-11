@@ -35,7 +35,7 @@ def is_job_running(name):
 
 
 def main():
-    job_name = 'obkwon-test-glue'
+    job_name = 'test-glue'
     run_glue(job_name)
     while True:
         print(is_job_running(job_name))
