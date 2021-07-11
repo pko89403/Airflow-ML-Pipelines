@@ -21,11 +21,13 @@
 │   ├── glue_boto3.py
 │   ├── rds_boto3.py
 │   └── sagemaker_boto3.py
+├── cleanup-workflow.py
 ├── recsys-emr-workflow.py
 ├── recsys-rdb-workflow.py
 ├── recsys-sagemaker-workflow.py
 ├── recsys-workflow.py
-└── recsys-xcom_delete.py
+├── recsys-xcom_delete.py
+└── scp-workflow.py
 ```
 
 ## Recsys Workflow Scenario ( SageMaker )
@@ -36,7 +38,7 @@
 4. Build DockerFile ( Build on Airflow)
 5. Push Image into Image Repo
 6. Run Image:Latest
-
+## Prevent Airflow LocalDB 
 ## Issues
 chmod +x /var/run/docker.sock <- DockerOperator를 사용하기 위해 dockerurl 지정 필요 및 실행 권한 변경 필요
 Netowork Configuration 필요
