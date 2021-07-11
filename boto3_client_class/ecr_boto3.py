@@ -9,12 +9,6 @@ import shutil
 
 
 """ FOLLOW JUST A STEP of AWS ECR PUSH
-DOCKERFILE_PATH = '.'
-ECR_REPOSITORY = "rnd-recsys-image" # same as image name
-REGION = 'northeast-2' # ecr located regions
-IMAGE_SAVE_CNT = 3
-CODE_URL = "https://git-codecommit.northeast-2.amazonaws.com/v1/repos/AmazonSageMaker-rnd-recsys-code"
-
 os.system('$(aws ecr get-login --no-include-email --region northeast-2)')
 os.system('docker build -t ' + ECR_REPOSITORY + ' ' + DOCKERFILE_PATH)
 os.system('docker tag ' + ECR_REPOSITORY + ':latest ' + IMAGE_URI)
